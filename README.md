@@ -1,5 +1,7 @@
 # Docker - SickRage
 
+[![Docker Repository on Quay.io](https://quay.io/repository/albertrdixon/sickrage/status "Docker Repository on Quay.io")](https://quay.io/repository/albertrdixon/sickrage)
+
 A minimal debian based [Docker](http://www.docker.com) container running [SickRage](https://github.com/SiCKRAGETV/SickRage)
 
 All of the SickRage awesomeness and none of the Phusion bloat!
