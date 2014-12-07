@@ -1,5 +1,9 @@
 #!/bin/sh
 set -e
+trap "exit 0" 2 15
+run_cmd() {
+  exec $*
+}
 
 : ${SB_USER:=root}
 : ${SB_HOME:=/sickrage}
@@ -12,4 +16,4 @@ test -r $SB_CONFIG || touch $SB_CONFIG
 
 cd $SB_HOME
 git pull
-exec "python" "SickBeard.py" "-f" "--datadir=$SB_DATA" "--config=$SB_CONFIG"
+run_cmd "python SickBeard.py -f --datadir=$SB_DATA --config=$SB_CONFIG"
