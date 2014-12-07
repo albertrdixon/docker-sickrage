@@ -4,7 +4,7 @@ MAINTAINER Albert Dixon <albert@timelinelabs.com>
 ENV PATH /usr/local/bin:$PATH
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV SICKRAGE_CHANNEL develop
+ENV SICKRAGE_CHANNEL master
 ENV SB_HOME /sickrage
 
 RUN apt-get update -qq &&\
