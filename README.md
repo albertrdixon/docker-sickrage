@@ -17,7 +17,7 @@ $ docker run -d -P quay.io/albertrdixon/sickrage docker-start
 If you want your config changes and data to persist (and of course you do), then run like so:
 
 ```
-$ docker run -d -P -e SB_DATA=/data -e SB_CONFIG=/data/config.ini -v /path/to/sickrage/data:/data quay.io/albertrdixon/sickrage docker-start
+$ docker run -d -P -e SB_DATA=/data -v /path/to/sickrage/data:/data quay.io/albertrdixon/sickrage docker-start
 ```
 
 Simple!
