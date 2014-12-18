@@ -6,12 +6,13 @@ function run_cmd {
 }
 
 function main {
-  test -e "$SB_DATA" || { echo "Cannot find data dir: $SB_DATA"; exit 1; }
-  test -r $"SB_CONFIG" || touch $SB_CONFIG 
+  test -d "$SB_DATA" || mkdir -p "$SB_DATA"
+  test -r "$SB_DATA/config.ini" || touch "$SB_DATA/config.ini"
 
   cd "$SB_HOME"
+  git checkout $SICKRAGE_CHANNEL
   git pull
-  run_cmd "python SickBeard.py -f --datadir=$SB_DATA --config=$SB_CONFIG"
+  run_cmd "python SickBeard.py -f --datadir='$SB_DATA' --config='$SB_DATA/config.ini'"
 }
 
 main

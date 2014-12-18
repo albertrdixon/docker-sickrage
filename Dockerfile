@@ -16,7 +16,7 @@ RUN apt-get update -qq &&\
 RUN git clone -b $SICKRAGE_CHANNEL git://github.com/echel0n/SickRage.git "$SB_HOME" &&\
     mkdir /torrents
 COPY docker-start.sh /usr/local/bin/docker-start
-RUN chmod 0755 /usr/local/bin/docker-start
+RUN chmod a+rx /usr/local/bin/docker-start
 
 CMD ["docker-start"]
 VOLUME ["/torrents"]
@@ -24,5 +24,4 @@ EXPOSE 8081
 
 ENV SB_USER   root
 ENV SB_PORT   8081
-ENV SB_DATA   /sickrage
-ENV SB_CONFIG /sickrage/config.ini
+ENV SB_DATA   /sickrage/data
