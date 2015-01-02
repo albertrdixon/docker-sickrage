@@ -12,7 +12,7 @@ function main {
   cd "$SB_HOME"
   git checkout $SICKRAGE_CHANNEL
   git pull
-  run_cmd "python SickBeard.py -f --datadir=$SB_DATA --config=$SB_DATA/config.ini"
+  run_cmd "/usr/bin/supervisord"
 }
 
 main
