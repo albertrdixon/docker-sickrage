@@ -20,7 +20,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker-start.sh /usr/local/bin/docker-start
 RUN chmod a+rx /usr/local/bin/docker-start
 
-CMD ["docker-start"]
+ENTRYPOINT ["docker-start"]
 VOLUME ["/torrents"]
 EXPOSE 8081
 

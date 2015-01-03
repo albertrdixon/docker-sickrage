@@ -6,14 +6,16 @@ function run_cmd {
 }
 
 function main {
+  local cmd="$@"
+  [ -z "$cmd" ] && cmd="/usr/bin/supervisord"
   test -d "$SB_DATA" || mkdir -p "$SB_DATA"
   test -r "$SB_DATA/config.ini" || touch "$SB_DATA/config.ini"
 
   cd "$SB_HOME"
   git checkout $SICKRAGE_CHANNEL
   git pull
-  run_cmd "/usr/bin/supervisord"
+  run_cmd "$cmd"
 }
 
-main
+main "$@"
 exit 0
