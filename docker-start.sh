@@ -11,7 +11,7 @@ function main {
     cmd="python $SB_HOME/SickBeard.py -f --datadir=$SB_DATA --config=$SB_DATA/config.ini"
   fi
   test -d "$SB_DATA" || mkdir -p "$SB_DATA"
-  test -r "$SB_DATA/config.ini" || touch "$SB_DATA/config.ini"
+  test -r "$SB_DATA/config.ini" || envtpl --keep-template -o "$SB_DATA/config.ini" /templates/config.ini.tpl
 
   cd "$SB_HOME"
   git checkout $SICKRAGE_CHANNEL
