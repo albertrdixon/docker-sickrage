@@ -7,7 +7,9 @@ function run_cmd {
 
 function main {
   local cmd="$@"
-  [ -z "$cmd" ] && cmd="/usr/bin/supervisord"
+  if [ -z "$cmd" ] || [[ "$cmd" == "sickrage" ]]; then
+    cmd="/usr/sbin/runsvdir-start"
+  fi
   test -d "$SB_DATA" || mkdir -p "$SB_DATA"
   test -r "$SB_DATA/config.ini" || touch "$SB_DATA/config.ini"
 
