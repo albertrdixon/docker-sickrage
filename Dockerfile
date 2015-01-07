@@ -9,16 +9,14 @@ ENV SB_HOME /sickrage
 
 RUN apt-get update -qq &&\
     apt-get install -y --no-install-recommends git python python-cheetah \
-    unrar-free unar unzip wget curl ca-certificates runit &&\
+    unrar-free unar unzip wget curl ca-certificates &&\
     apt-get autoclean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN git clone -b $SICKRAGE_CHANNEL git://github.com/SiCKRAGETV/SickRage.git "$SB_HOME" &&\
     mkdir /torrents
 
-RUN mkdir -p /etc/service/sickrage
-COPY sickrage.sh /etc/service/sickrage/run
 COPY docker-start.sh /usr/local/bin/docker-start
-RUN chmod a+rx /usr/local/bin/docker-start /etc/service/sickrage/run
+RUN chmod a+rx /usr/local/bin/docker-start
 
 WORKDIR /sickrage
 ENTRYPOINT ["docker-start"]
