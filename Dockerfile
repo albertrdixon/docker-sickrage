@@ -16,9 +16,9 @@ RUN git clone -b $SICKRAGE_CHANNEL git://github.com/SiCKRAGETV/SickRage.git "$SB
     mkdir /torrents
 
 RUN mkdir -p /etc/service/sickrage
-COPY sickrage.sh /etc/service/sickrage/run/
+COPY sickrage.sh /etc/service/sickrage/run
 COPY docker-start.sh /usr/local/bin/docker-start
-RUN chmod a+rx /usr/local/bin/docker-start /etc/service/sickrage/run/sickrage.sh
+RUN chmod a+rx /usr/local/bin/docker-start /etc/service/sickrage/run
 
 WORKDIR /sickrage
 ENTRYPOINT ["docker-start"]
