@@ -23,6 +23,7 @@ Simple!
 ## Details
 
 `/sickrage` - Application is installed to this path
+
 `/data` - Sickrage data directory (mount a volume here to persist Sickrage data)
 
 *Note*: I would also mount /etc/localtime in the container as read-only (`-v /etc/localtime:/etc/localtime:ro`)
