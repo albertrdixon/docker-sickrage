@@ -400,11 +400,7 @@ nzbget_priority = 100
 [TORRENT]
 torrent_username = {{ default .Env.TORRENT_USERNAME "" }}
 torrent_password = {{ default .Env.TORRENT_PASSWORD "" }}
-{{ with $host := .Env.TORRENT_HOST }}
-torrent_host = http://{{ $host }}/
-{{ else }}
-torrent_host = http://torrent/
-{{ end }}
+torrent_host = {{ default .Env.TORRENT_HOST "http://torrent/" }}
 torrent_path = /downloads/tv_shows
 torrent_seed_time = 0
 torrent_paused = 0
@@ -467,7 +463,7 @@ use_boxcar2 = 0
 boxcar2_notify_onsnatch = 0
 boxcar2_notify_ondownload = 0
 boxcar2_notify_onsubtitledownload = 0
-boxcar2_accesstoken = ""
+boxcar2_accesstoken = "{{ default .Env.BOXCAR2_TOKEN "" }}"
 [Pushover]
 use_pushover = 0
 pushover_notify_onsnatch = 0
@@ -586,9 +582,9 @@ subtitles_multi = 1
 use_failed_downloads = 1
 delete_failed = 1
 [ANIDB]
-use_anidb = 0
+use_anidb = 1
 anidb_username = "{{ default .Env.ANIDB_USERNAME "" }}"
 anidb_password = "{{ default .Env.ANIDB_PASSWORD "" }}"
-anidb_use_mylist = 0
+anidb_use_mylist = 1
 [ANIME]
-anime_split_home = 0
+anime_split_home = 1
