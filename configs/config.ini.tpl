@@ -1,24 +1,24 @@
 [General]
 git_autoissues = 0
-git_username = {{ GIT_USERNAME }}
-git_password = {{ GIT_PASSWORD }}
+git_username = {{ default .Env.GIT_USERNAME "" }}
+git_password = {{ default .Env.GIT_PASSWORD "" }}
 git_reset = 0
-branch = {{ SICKRAGE_CHANNEL }}
+branch = {{ default .Env.SICKRAGE_CHANNEL "master" }}
 git_remote = origin
 git_remote_url = https://github.com/SiCKRAGETV/SickRage.git
 cur_commit_hash = 
 cur_commit_branch = ""
 config_version = 6
 encryption_version = 0
-log_dir = logs
+log_dir = Logs
 socket_timeout = None
 web_port = 8081
 web_host = 0.0.0.0
 web_ipv6 = 0
 web_log = 0
 web_root = ""
-web_username = "{{ USERNAME }}"
-web_password = "{{ PASSWORD }}"
+web_username = "{{ default .Env.USERNAME "" }}"
+web_password = "{{ default .Env.PASSWORD "" }}"
 play_videos = 0
 localhost_ip = ""
 cpu_preset = NORMAL
@@ -68,7 +68,7 @@ naming_multi_ep = 32
 naming_anime_multi_ep = 1
 naming_anime = 3
 launch_browser = 1
-update_shows_on_start = 0
+update_shows_on_start = 1
 trash_remove_show = 0
 trash_rotate_logs = 0
 sort_article = 0
@@ -107,35 +107,35 @@ nzb_dir = ""
 torrent_dir = "/torrents"
 [KICKASSTORRENTS]
 kickasstorrents = 1
-kickasstorrents_confirmed = 0
-kickasstorrents_ratio = ""
-kickasstorrents_minseed = 0
+kickasstorrents_confirmed = 1
+kickasstorrents_ratio = 1
+kickasstorrents_minseed = 11
 kickasstorrents_minleech = 0
 kickasstorrents_proxy = 0
 kickasstorrents_proxy_url = http://proxite.eu/
-kickasstorrents_search_mode = eponly
-kickasstorrents_search_fallback = 0
+kickasstorrents_search_mode = sponly
+kickasstorrents_search_fallback = 1
 kickasstorrents_enable_daily = 1
 kickasstorrents_enable_backlog = 1
 [THEPIRATEBAY]
 thepiratebay = 1
-thepiratebay_confirmed = 0
-thepiratebay_ratio = ""
-thepiratebay_minseed = 0
+thepiratebay_confirmed = 1
+thepiratebay_ratio = 1
+thepiratebay_minseed = 11
 thepiratebay_minleech = 0
 thepiratebay_proxy = 0
 thepiratebay_proxy_url = http://proxite.eu/
-thepiratebay_search_mode = eponly
-thepiratebay_search_fallback = 0
+thepiratebay_search_mode = sponly
+thepiratebay_search_fallback = 1
 thepiratebay_enable_daily = 1
 thepiratebay_enable_backlog = 1
 [EZRSS]
 ezrss = 1
-ezrss_ratio = ""
+ezrss_ratio = 1
 ezrss_proxy = 0
 ezrss_proxy_url = http://proxite.eu/
-ezrss_search_mode = eponly
-ezrss_search_fallback = 0
+ezrss_search_mode = sponly
+ezrss_search_fallback = 1
 ezrss_enable_daily = 1
 ezrss_enable_backlog = 1
 [HDBITS]
@@ -398,15 +398,13 @@ nzbget_host = ""
 nzbget_use_https = 0
 nzbget_priority = 100
 [TORRENT]
-torrent_username = {{ TORRENT_USERNAME }}
-torrent_password = {{ TORRENT_PASSWORD }}
-{% if TORRENT_HOST is defined %}
-torrent_host = http://{{ TORRENT_HOST }}/
-{% elif TRANSMISSION_PORT_9091_TCP is defined %}
-torrent_host = {{ TRANSMISSION_PORT_9091_TCP }}
-{% else %}
+torrent_username = {{ default .Env.TORRENT_USERNAME "" }}
+torrent_password = {{ default .Env.TORRENT_PASSWORD "" }}
+{{ with $host := .Env.TORRENT_HOST }}
+torrent_host = http://{{ $host }}/
+{{ else }}
 torrent_host = http://torrent/
-{% endif %}
+{{ end }}
 torrent_path = /downloads/tv_shows
 torrent_seed_time = 0
 torrent_paused = 0
@@ -589,8 +587,8 @@ use_failed_downloads = 1
 delete_failed = 1
 [ANIDB]
 use_anidb = 0
-anidb_username = ""
-anidb_password = ""
+anidb_username = "{{ default .Env.ANIDB_USERNAME "" }}"
+anidb_password = "{{ default .Env.ANIDB_PASSWORD "" }}"
 anidb_use_mylist = 0
 [ANIME]
 anime_split_home = 0
