@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eo pipefail
+trap "exit 0" 2 15
+
+echo "**** Starting Sickrage (https://www.sickrage.tv) container. Enjoy! ****"
+[ -n "$OPEN_FILE_LIMIT" ] &&\
+  ulimit -n $OPEN_FILE_LIMIT
+
+dockerize \
+  -template /templates/supervisord.conf.tpl:/etc/supervisor/supervisord.conf \
+  echo "==> Writing /etc/supervisor/supervisord.conf from /templates/supervisord.conf.tpl"
+
+exec $*
+exit 0
