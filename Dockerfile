@@ -8,7 +8,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends --force-yes \
     git-core python python-cheetah \
     unar wget curl supervisor \
-    ca-certificates locales
+    dnsmasq ca-certificates locales
 
 RUN dpkg-reconfigure locales && \
     locale-gen C.UTF-8 && \
