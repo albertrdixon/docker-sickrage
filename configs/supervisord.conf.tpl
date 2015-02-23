@@ -3,6 +3,13 @@ nodaemon  = true
 user      = root
 loglevel  = {{ default .Env.SUPERVISOR_LOG_LEVEL "INFO" }}
 
+[unix_http_server]
+file=/var/run/supervisor.sock
+chmod=0700
+
+[supervisorctl]
+serverurl=unix:///var/run/supervisor.sock
+
 [program:sickrage]
 command = python SickBeard.py --datadir={{ default .Env.SB_DATA "/data" }} --config={{ default .Env.SB_DATA "/data" }}/config.ini
 directory               = {{ default .Env.SB_HOME "/sickrage" }}
