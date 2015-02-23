@@ -30,9 +30,10 @@ ENTRYPOINT ["docker-entry"]
 VOLUME ["/torrents"]
 EXPOSE 8081
 
+ENV OPEN_FILE_LIMIT      32768
 ENV SUPERVISOR_LOG_LEVEL INFO
-ENV SICKRAGE_CHANNEL master
-ENV SB_HOME          /sickrage
-ENV SB_USER          root
-ENV SB_PORT          8081
-ENV SB_DATA          /data
+ENV SICKRAGE_CHANNEL     master
+ENV SB_HOME              /sickrage
+ENV SB_USER              root
+ENV SB_PORT              8081
+ENV SB_DATA              /data
