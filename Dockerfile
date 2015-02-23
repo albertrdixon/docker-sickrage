@@ -23,7 +23,7 @@ RUN git clone -v git://github.com/SiCKRAGETV/SickRage.git /sickrage &&\
 ADD configs /templates
 ADD docker-* /usr/local/bin/
 RUN chmod a+rx /usr/local/bin/docker-*
-RUN bash -c "mkdir /{data,torrents,shows,downloads}"
+RUN bash -c "mkdir /{data,torrents,tv_shows,downloads}"
 
 WORKDIR /sickrage
 ENTRYPOINT ["docker-entry"]
