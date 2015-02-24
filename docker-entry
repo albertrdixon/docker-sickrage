@@ -7,9 +7,9 @@ echo "**** Starting Sickrage (https://www.sickrage.tv) container. Enjoy! ****"
   ulimit -n $OPEN_FILE_LIMIT
 
 dockerize \
-  -template /templates/supervisord.conf.tpl:/etc/supervisor/supervisord.conf \
+  -template /templates/Procfile.tpl:/sickrage/Procfile \
   -template /templates/dnsmasq.conf.tpl:/etc/dnsmasq.conf \
-  echo "==> Writing /etc/supervisor/supervisord.conf from /templates/supervisord.conf.tpl"
+  echo "==> Writing configs from templates"
 
 exec $*
 exit 0

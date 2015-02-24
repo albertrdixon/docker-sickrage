@@ -7,8 +7,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends --force-yes \
     git-core python python-cheetah \
-    unar wget curl supervisor \
-    dnsmasq ca-certificates locales
+    unar wget curl dnsmasq \
+    ca-certificates locales
 
 RUN dpkg-reconfigure locales && \
     locale-gen C.UTF-8 && \
@@ -17,12 +17,17 @@ RUN dpkg-reconfigure locales && \
 RUN curl -#kL https://github.com/jwilder/dockerize/releases/download/v0.0.2/dockerize-linux-amd64-v0.0.2.tar.gz |\
     tar xvz -C /usr/local/bin
 
+RUN curl -#kL -o /usr/local/bin/forego \
+    https://godist.herokuapp.com/projects/ddollar/forego/releases/current/linux-amd64/forego
+
 RUN git clone -v git://github.com/SiCKRAGETV/SickRage.git /sickrage &&\
-    ln -svf /usr/bin/unar /sickrage/lib/unrar2/unrar
+    ln -svf /usr/bin/unar /sickrage/lib/unrar2/unrar &&\
+    ln -svf /usr/bin/unar /usr/bin/unrar
 
 ADD configs /templates
 ADD docker-* /usr/local/bin/
-RUN chmod a+rx /usr/local/bin/docker-*
+RUN chown root:root /usr/local/bin/* &&\
+    chmod a+rx /usr/local/bin/*
 RUN bash -c "mkdir /{data,torrents,tv_shows,downloads}"
 
 WORKDIR /sickrage

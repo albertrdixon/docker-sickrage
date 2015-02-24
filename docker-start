@@ -8,5 +8,5 @@ trap "exit 0" 2 15
     echo "==> Writing $SB_DATA/config.ini from /templates/config.ini.tpl"
 
 cd $SB_HOME
-exec "/usr/bin/supervisord" "-c" "/etc/supervisor/supervisord.conf"
+exec "forego" "start"
 exit 0
