@@ -400,7 +400,7 @@ nzbget_priority = 100
 [TORRENT]
 torrent_username = {{ default .Env.TORRENT_USERNAME "" }}
 torrent_password = {{ default .Env.TORRENT_PASSWORD "" }}
-torrent_host = {{ default .Env.TORRENT_HOST "http://torrent/" }}
+torrent_host = http://transmission.{{ default .Env.PROXY_DOMAIN "torrent.dl" }}:9091/
 torrent_path = /downloads/tv_shows
 torrent_seed_time = 0
 torrent_paused = 0
