@@ -35,7 +35,7 @@ nzb_method = blackhole
 torrent_method = transmission
 usenet_retention = 500
 autopostprocesser_frequency = 10
-dailysearch_frequency = 45
+dailysearch_frequency = 20
 backlog_frequency = 720
 update_frequency = 12
 download_propers = 1
@@ -52,7 +52,7 @@ indexer_default = 0
 indexer_timeout = 20
 anime_default = 0
 scene_default = 0
-provider_order = kickasstorrents thepiratebay ezrss hdbits btn speedcd tvtorrents torrentbytes iptorrents nyaatorrents torrentday sceneaccess bitsoup tokyotoshokan hdtorrents freshontv nextgen t411 torrentleech
+provider_order = kickasstorrents thepiratebay oldpiratebay ezrss rarbg tokyotoshokan nyaatorrents hdbits btn speedcd tvtorrents torrentbytes iptorrents torrentday sceneaccess bitsoup hdtorrents freshontv nextgen t411 torrentleech
 version_notify = 1
 auto_update = 0
 notify_on_update = 1
@@ -84,7 +84,7 @@ metadata_tivo = 0|0|0|0|0|0|0|0|0|0
 metadata_mede8er = 0|0|0|0|0|0|0|0|0|0
 backlog_days = 10
 cache_dir = cache
-root_dirs = 0|/shows
+root_dirs = 0|/tv_shows
 tv_download_dir = /downloads
 keep_processed_dir = 0
 process_method = move
@@ -129,6 +129,33 @@ thepiratebay_search_mode = sponly
 thepiratebay_search_fallback = 1
 thepiratebay_enable_daily = 1
 thepiratebay_enable_backlog = 1
+[RARBG]
+rarbg = 1
+rarbg_ratio = 1
+rarbg_proxy = 0
+rarbg_proxy_url = http://proxite.eu/
+rarbg_search_mode = sponly
+rarbg_search_fallback = 1
+rarbg_enable_daily = 1
+rarbg_enable_backlog = 1
+[TOKYOTOSHOKAN]
+tokyotoshokan = 1
+tokyotoshokan_ratio = 1
+tokyotoshokan_proxy = 0
+tokyotoshokan_proxy_url = http://proxite.eu/
+tokyotoshokan_search_mode = sponly
+tokyotoshokan_search_fallback = 1
+tokyotoshokan_enable_daily = 1
+tokyotoshokan_enable_backlog = 1
+[NYAATORRENTS]
+nyaatorrents = 1
+nyaatorrents_ratio = 1
+nyaatorrents_proxy = 0
+nyaatorrents_proxy_url = http://proxite.eu/
+nyaatorrents_search_mode = sponly
+nyaatorrents_search_fallback = 1
+nyaatorrents_enable_daily = 1
+nyaatorrents_enable_backlog = 1
 [EZRSS]
 ezrss = 1
 ezrss_ratio = 1
@@ -210,15 +237,6 @@ iptorrents_search_mode = eponly
 iptorrents_search_fallback = 0
 iptorrents_enable_daily = 1
 iptorrents_enable_backlog = 1
-[NYAATORRENTS]
-nyaatorrents = 0
-nyaatorrents_ratio = ""
-nyaatorrents_proxy = 0
-nyaatorrents_proxy_url = http://proxite.eu/
-nyaatorrents_search_mode = eponly
-nyaatorrents_search_fallback = 0
-nyaatorrents_enable_daily = 1
-nyaatorrents_enable_backlog = 1
 [TORRENTDAY]
 torrentday = 0
 torrentday_username = ""
@@ -259,15 +277,6 @@ bitsoup_search_mode = eponly
 bitsoup_search_fallback = 0
 bitsoup_enable_daily = 1
 bitsoup_enable_backlog = 1
-[TOKYOTOSHOKAN]
-tokyotoshokan = 0
-tokyotoshokan_ratio = ""
-tokyotoshokan_proxy = 0
-tokyotoshokan_proxy_url = http://proxite.eu/
-tokyotoshokan_search_mode = eponly
-tokyotoshokan_search_fallback = 0
-tokyotoshokan_enable_daily = 1
-tokyotoshokan_enable_backlog = 1
 [HDTORRENTS]
 hdtorrents = 0
 hdtorrents_username = ""
@@ -400,8 +409,12 @@ nzbget_priority = 100
 [TORRENT]
 torrent_username = {{ default .Env.TORRENT_USERNAME "" }}
 torrent_password = {{ default .Env.TORRENT_PASSWORD "" }}
-torrent_host = http://transmission.{{ default .Env.PROXY_DOMAIN "torrent.dl" }}:9091/
-torrent_path = /downloads/tv_shows
+{{ with .Env.TORRENT_HOST }}
+  torrent_host = http://{{ . }}/
+{{ else }}
+  torrent_host = http://transmission.{{ default .Env.PROXY_DOMAIN "torrent.dl" }}:9091/
+{{ end }}
+torrent_path = /downloads
 torrent_seed_time = 0
 torrent_paused = 0
 torrent_high_bandwidth = 0
