@@ -6,8 +6,10 @@ echo "**** Starting Sickrage (https://www.sickrage.tv) container. Enjoy! ****"
 [ -n "$OPEN_FILE_LIMIT" ] &&\
   ulimit -n $OPEN_FILE_LIMIT
 
+dpkg-reconfigure --frontend noninteractive tzdata
+
 dockerize \
-  -template /templates/Procfile.tpl:/sickrage/Procfile \
+  -template /templates/supervisord.conf.tpl:/etc/supervisord.conf \
   -template /templates/dnsmasq.conf.tpl:/etc/dnsmasq.conf \
   echo "==> Writing configs from templates"
 
