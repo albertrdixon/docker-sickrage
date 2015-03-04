@@ -26,13 +26,6 @@ stdout_logfile_maxbytes = 0
 stderr_logfile          = /dev/stderr
 stderr_logfile_maxbytes = 0
 
-[program:dnsmasq]
-command                 = dnsmasq -kd
-stdout_logfile          = /dev/stderr
-stdout_logfile_maxbytes = 0
-stderr_logfile          = /dev/stderr
-stderr_logfile_maxbytes = 0
-
 [program:updater]
 command                 = python -u /usr/local/bin/updater.py -a sickrage -b {{ default .Env.SICKRAGE_CHANNEL "master" }} -f {{ default .Env.UPDATE_FREQUENCY }}
 stdout_logfile          = /dev/stderr

@@ -7,6 +7,10 @@ trap "exit 0" 2 15
     -template /templates/config.ini.tpl:$SB_DATA/config.ini \
     echo "==> Writing $SB_DATA/config.ini from /templates/config.ini.tpl"
 
+cd $SB_HOME
+git checkout $SICKRAGE_CHANNEL
+git pull --verbose
+
 . /venv/bin/activate
 export PYTHONPATH=$SB_HOME
 exec -a "supervisord" -l "supervisord" "-c" "/etc/supervisord.conf"
