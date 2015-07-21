@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
     curl git python python-dev libssl-dev gcc \
-    locales supervisor ca-certificates dnsmasq \
+    locales supervisor ca-certificates unrar-free \
     libxml2-dev libxslt-dev \
     && curl -#kL https://bootstrap.pypa.io/get-pip.py | python
 
@@ -22,7 +22,7 @@ RUN curl -#kL https://github.com/albertrdixon/tmplnator/releases/download/v2.1.0
 RUN curl -#kL https://github.com/albertrdixon/escarole/releases/download/v0.1.0/escarole-linux.tar.gz |\
     tar xvz -C /usr/local/bin
 
-RUN git clone -v git://github.com/SiCKRAGETV/SickRage.git /sickrage
+RUN git clone -v --depth 1 git://github.com/SiCKRAGETV/SickRage.git /sickrage
 
 ADD bashrc /root/.bashrc
 ADD configs /templates

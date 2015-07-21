@@ -2,9 +2,6 @@
 set -eo pipefail
 trap "exit 0" 2 15
 
-echo "==> Starting dnsmasq, I hope you gave me NET_ADMIN..."
-dnsmasq --all-servers --local-service
-
 cd $SB_HOME
 git checkout $SICKRAGE_CHANNEL
 git pull --verbose

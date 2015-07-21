@@ -16,6 +16,7 @@ serverurl = unix:///supervisor.sock
 [program:sickrage]
 command = python -u SickBeard.py --datadir={{ default .Env.SB_DATA "/data" }} --config={{ default .Env.SB_DATA "/data" }}/config.ini
 directory               = {{ default .Env.SB_HOME "/sickrage" }}
+environment             = PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/bin
 user                    = root
 autostart               = true
 autorestart             = true
@@ -30,6 +31,7 @@ stderr_logfile_maxbytes = 0
 [program:updater]
 command                 = escarole -C /escarole.yaml -i {{ default .Env.UPDATE_INTERVAL "4h" }}
 autostart               = true
+autorestart             = true
 stdout_logfile          = /dev/stderr
 stdout_logfile_maxbytes = 0
 stderr_logfile          = /dev/stderr
