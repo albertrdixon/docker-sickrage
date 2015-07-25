@@ -1,11 +1,11 @@
-{{ path "/etc/supervisor" }}[unix_http_server]
+{{ path "/etc" }}[unix_http_server]
 file  = /supervisor.sock
 chmod = 0777
 
 [supervisord]
 nodaemon         = true
 user             = root
-loglevel         = {{ default .Env.SUPERVISOR_LOG_LEVEL "INFO" }}
+loglevel         = {{ def .Env.SUPERVISOR_LOG_LEVEL "INFO" }}
 
 [rpcinterface:supervisor]
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
@@ -14,8 +14,8 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
 serverurl = unix:///supervisor.sock
 
 [program:sickrage]
-command = python -u SickBeard.py --datadir={{ default .Env.SB_DATA "/data" }} --config={{ default .Env.SB_DATA "/data" }}/config.ini
-directory               = {{ default .Env.SB_HOME "/sickrage" }}
+command = python -u SickBeard.py --datadir={{ def .Env.SB_DATA "/data" }} --config={{ def .Env.SB_DATA "/data" }}/config.ini
+directory               = {{ def .Env.SB_HOME "/sickrage" }}
 environment             = PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/bin
 user                    = root
 autostart               = true
@@ -29,7 +29,7 @@ stderr_logfile          = /dev/stderr
 stderr_logfile_maxbytes = 0
 
 [program:updater]
-command                 = escarole -C /escarole.yaml -i {{ default .Env.UPDATE_INTERVAL "4h" }}
+command                 = escarole -C /escarole.yaml -i {{ def .Env.UPDATE_INTERVAL "4h" }}
 autostart               = true
 autorestart             = true
 stdout_logfile          = /dev/stderr
