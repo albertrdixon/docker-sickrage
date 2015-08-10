@@ -24,7 +24,7 @@ RUN tar xvzf /es.tgz -C /usr/local \
 
 RUN git clone -v --depth 1 git://github.com/SiCKRAGETV/SickRage.git /sickrage
 
-ADD bashrc /root/.bashrc
+ADD bashrc /root/.profile
 ADD configs /templates
 ADD scripts/* /usr/local/bin/
 RUN chown root:root /usr/local/bin/* &&\
