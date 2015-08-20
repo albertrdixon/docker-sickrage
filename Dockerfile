@@ -4,13 +4,9 @@ MAINTAINER Albert Dixon <albert.dixon@schange.com>
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk update
-RUN apk add bash python ca-certificates \
-    git unrar py-pygments py-openssl \
-    py-lxml py-html5lib supervisor
-ADD https://bootstrap.pypa.io/get-pip.py /gp.py
-RUN python /gp.py \
-    && rm -f /gp.py \
-    && pip install -U cheetah>=2.1.0
+RUN apk add bash git unrar ca-certificates \
+    python py-openssl py-mako py-pillow \
+    supervisor
 
 ADD https://github.com/albertrdixon/tmplnator/releases/download/v2.2.0/t2-linux.tgz /t2.tgz
 RUN tar xvzf /t2.tgz -C /usr/local \
@@ -33,6 +29,7 @@ RUN bash -c "mkdir /{data,torrents,tv_shows,downloads}"
 
 ENTRYPOINT ["docker-entry"]
 CMD ["docker-start"]
+EXPOSE 8081
 
 ENV PATH                 /usr/local/bin:$PATH
 ENV OPEN_FILE_LIMIT      32768
