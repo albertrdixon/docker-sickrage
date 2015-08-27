@@ -39,12 +39,13 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
         bash \
         ca-certificates \
         git \
+        py-html5lib \
         py-lxml \
         py-mako \
         py-openssl \
         py-pillow \
         python \
-        supervisor
-        unrar \
+        supervisor \
+        unrar
 
 RUN git clone -v --depth 1 git://github.com/SiCKRAGETV/SickRage.git /sickrage
