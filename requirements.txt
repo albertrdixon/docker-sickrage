@@ -1,4 +1,0 @@
-cheetah>=2.1.0
-pyopenssl==0.13.1
-pygments
-lxml
