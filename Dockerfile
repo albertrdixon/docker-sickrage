@@ -1,6 +1,7 @@
 FROM alpine:3.2
 MAINTAINER Albert Dixon <albert@dixon.rocks>
 
+VOLUME ["/data"]
 ENTRYPOINT ["docker-entry"]
 CMD ["docker-start"]
 EXPOSE 8081
@@ -15,10 +16,8 @@ ENV SICKRAGE_CHANNEL     master
 ENV SUPERVISOR_LOG_LEVEL INFO
 ENV UPDATE_INTERVAL      4h
 
-ADD https://github.com/albertrdixon/tmplnator/releases/download/v2.2.0/t2-linux.tgz /t2.tgz
-RUN tar xvzf /t2.tgz -C /usr/local \
-    && ln -s /usr/local/bin/t2-linux /usr/local/bin/t2 \
-    && rm -f /t2.tgz
+ADD https://github.com/albertrdixon/tmplnator/releases/download/v2.2.1/t2-linux.tgz /t2.tgz
+RUN tar xvzf /t2.tgz -C /usr/local/bin
 
 ADD https://github.com/albertrdixon/escarole/releases/download/v0.1.1/escarole-linux.tgz /es.tgz
 RUN tar xvzf /es.tgz -C /usr/local \
@@ -26,11 +25,12 @@ RUN tar xvzf /es.tgz -C /usr/local \
     && rm -f /es.tgz
 
 ADD bashrc /root/.profile
+ADD gitconfig /root/.gitconfig
 ADD configs /templates
 ADD scripts/* /usr/local/bin/
 RUN chown root:root /usr/local/bin/* \
     && chmod a+rx /usr/local/bin/* \
-    && mkdir /data /torrents /tv_shows /downloads
+    && mkdir /torrents /tv_shows /downloads
 
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
