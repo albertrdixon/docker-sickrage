@@ -48,4 +48,4 @@ RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
         supervisor \
         unrar
 
-RUN git clone -v --depth 1 git://github.com/SiCKRAGETV/SickRage.git /sickrage
+RUN git clone -v --depth 1 git://github.com/SickRage/SickRage.git /sickrage
