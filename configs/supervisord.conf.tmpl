@@ -17,7 +17,7 @@ prompt    = sctl
 command = python -u SickBeard.py --datadir={{ def .Env.SB_DATA "/data" }} --config={{ def .Env.SB_DATA "/data" }}/config.ini
 directory               = {{ def .Env.SB_HOME "/sickrage" }}
 environment             = PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/bin
-user                    = root
+user                    = sickrage
 autostart               = true
 autorestart             = true
 stopsignal              = TERM
@@ -30,6 +30,7 @@ stderr_logfile_maxbytes = 0
 
 [program:updater]
 command                 = escarole -C /escarole.yaml -i {{ def .Env.UPDATE_INTERVAL "4h" }}
+user                    = sickrage
 autostart               = true
 autorestart             = true
 stdout_logfile          = /dev/stderr

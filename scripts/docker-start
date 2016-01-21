@@ -6,5 +6,6 @@ cd $SB_HOME
 git checkout $SICKRAGE_CHANNEL
 git up
 
+chown -Rc sickrage:sickrage /torrents /tv_shows /downloads /sickrage /data
 exec -a "supervisord" "supervisord" "-c" "/etc/supervisord.conf"
 exit 0
