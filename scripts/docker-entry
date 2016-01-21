@@ -10,9 +10,9 @@ t2 /templates
 
 echo "--> Checking sickrage user ..."
 if ! id sickrage >/dev/null 2>&1; then
-  echo "--> Creating transmission user and group ..."
-  addgroup -g ${SICKRAGE_GID} transmission || true
-  adduser -s /sbin/nologin -D -H -G transmission -u ${SICKRAGE_UID} transmission
+  echo "--> Creating sickrage user and group ..."
+  addgroup -g ${SICKRAGE_GID} sickrage || true
+  adduser -s /sbin/nologin -D -H -G sickrage -u ${SICKRAGE_UID} sickrage
 fi
 
 exec $*
