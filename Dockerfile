@@ -19,7 +19,7 @@ ENV LANGUAGE=en_US.UTF-8 \
     UPDATE_INTERVAL=1h \
     LANG=en_US.UTF-8
 
-ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.2/escarole-linux.tgz /es.tgz
+ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.3/escarole-linux.tgz /es.tgz
 COPY ["entry", "start", "/sbin/"]
 COPY escarole.yml /
 

@@ -10,7 +10,8 @@ echo "--> Checking sickrage user ..."
 if ! id sickrage >/dev/null 2>&1; then
   echo "--> Creating sickrage user and group ..."
   addgroup -g ${SB_GID} sickrage || true
-  adduser -s /sbin/nologin -D -H -G sickrage -u ${SB_UID} sickrage
+  adduser -s /sbin/nologin -D -h /src -G sickrage -u ${SB_UID} sickrage
+  adduser sickrage users
 fi
 
 exec $*
