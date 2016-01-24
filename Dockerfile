@@ -16,7 +16,7 @@ ENV OPEN_FILE_LIMIT=32768 \
     SICKRAGE_UID=7000 \
     UPDATE_INTERVAL=1h
 
-ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.1/escarole-linux.tgz /es.tgz
+ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.2/escarole-linux.tgz /es.tgz
 COPY ["entry", "start", "/sbin/"]
 COPY escarole.yml /
 
