@@ -2,38 +2,30 @@ FROM alpine:3.3
 MAINTAINER Albert Dixon <albert@dixon.rocks>
 
 VOLUME ["/data"]
-ENTRYPOINT ["docker-entry"]
-CMD ["docker-start"]
+ENTRYPOINT ["tini", "--", "/sbin/entry"]
+CMD ["/sbin/start"]
 EXPOSE 8081
 ENV OPEN_FILE_LIMIT=32768 \
-    PATH=/usr/local/bin:$PATH \
+    PATH=/src/sickrage:$PATH \
     SB_DATA=/data \
-    SB_HOME=/sickrage \
+    SB_HOME=/src/sickrage \
     SB_PORT=8081 \
-    SB_USER=root \
+    SB_USER=sickrage \
     SICKRAGE_CHANNEL=master \
     SICKRAGE_GID=7000 \
     SICKRAGE_UID=7000 \
-    SUPERVISOR_LOG_LEVEL=INFO \
-    UPDATE_INTERVAL=4h
+    UPDATE_INTERVAL=1h
 
-ADD https://github.com/albertrdixon/tmplnator/releases/download/v2.2.1/t2-linux.tgz /t2.tgz
-ADD https://github.com/albertrdixon/escarole/releases/download/v0.1.1/escarole-linux.tgz /es.tgz
-COPY bashrc /root/.profile
-COPY gitconfig /root/.gitconfig
-COPY configs /templates
-COPY scripts/* /usr/local/bin/
+ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.1/escarole-linux.tgz /es.tgz
+COPY ["entry", "start", "/sbin/"]
+COPY escarole.yml /
 
-RUN chmod a+rx /usr/local/bin/* \
-    && mkdir -v /torrents /tv_shows /downloads \
-    && tar xvzf /t2.tgz -C /bin \
-    && tar xvzf /es.tgz -C / \
-    && ln -vs /bin/escarole-linux /bin/escarole \
+RUN mkdir -v /torrents /tv_shows /downloads \
+    && chmod +rx /sbin/entry /sbin/start \
+    && tar xvzf /es.tgz -C /bin \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk update \
-    && apk add \
-        bash \
+    && apk add --update --purge \
         ca-certificates \
         git \
         py-html5lib \
@@ -42,8 +34,7 @@ RUN chmod a+rx /usr/local/bin/* \
         py-openssl \
         py-pillow \
         python \
-        supervisor \
+        tini \
         unrar \
         unzip \
-    && rm -rf /t2.tgz /es.tgz \
-    && git clone -v --depth 1 git://github.com/SickRage/SickRage.git /sickrage
+    && rm -rf /es.tgz

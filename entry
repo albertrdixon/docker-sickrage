@@ -1,12 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 set -eo pipefail
 trap "exit 0" 2 15
 
 echo "**** Starting Sickrage (http://sickrage.github.io/) container. Enjoy! ****"
 [ -n "$OPEN_FILE_LIMIT" ] &&\
   ulimit -n $OPEN_FILE_LIMIT
-
-t2 /templates
 
 echo "--> Checking sickrage user ..."
 if ! id sickrage >/dev/null 2>&1; then

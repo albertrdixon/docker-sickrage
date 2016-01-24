@@ -1,0 +1,5 @@
+#!/bin/sh
+chown -Rc sickrage:sickrage /torrents /tv_shows /downloads /data
+exec /bin/escarole --branch=master \
+  --update-interval=${UPDATE_INTERVAL} \
+  --uid=0 --gid=0 SickRage/SickRage sickrage
