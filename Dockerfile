@@ -5,16 +5,19 @@ VOLUME ["/data"]
 ENTRYPOINT ["tini", "--", "/sbin/entry"]
 CMD ["/sbin/start"]
 EXPOSE 8081
-ENV OPEN_FILE_LIMIT=32768 \
+ENV LANGUAGE=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    OPEN_FILE_LIMIT=32768 \
     PATH=/src/sickrage:$PATH \
+    SB_CHANNEL=master \
     SB_DATA=/data \
+    SB_GID=7000 \
     SB_HOME=/src/sickrage \
     SB_PORT=8081 \
+    SB_UID=7000 \
     SB_USER=sickrage \
-    SICKRAGE_CHANNEL=master \
-    SICKRAGE_GID=7000 \
-    SICKRAGE_UID=7000 \
-    UPDATE_INTERVAL=1h
+    UPDATE_INTERVAL=1h \
+    LANG=en_US.UTF-8
 
 ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.2/escarole-linux.tgz /es.tgz
 COPY ["entry", "start", "/sbin/"]

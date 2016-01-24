@@ -9,8 +9,8 @@ echo "**** Starting Sickrage (http://sickrage.github.io/) container. Enjoy! ****
 echo "--> Checking sickrage user ..."
 if ! id sickrage >/dev/null 2>&1; then
   echo "--> Creating sickrage user and group ..."
-  addgroup -g ${SICKRAGE_GID} sickrage || true
-  adduser -s /sbin/nologin -D -H -G sickrage -u ${SICKRAGE_UID} sickrage
+  addgroup -g ${SB_GID} sickrage || true
+  adduser -s /sbin/nologin -D -H -G sickrage -u ${SB_UID} sickrage
 fi
 
 exec $*
