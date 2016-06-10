@@ -2,7 +2,7 @@
 
 [![Docker Repository on Quay.io](https://quay.io/repository/albertrdixon/sickrage/status "Docker Repository on Quay.io")](https://quay.io/repository/albertrdixon/sickrage)
 
-Just a small [Docker](http://www.docker.com) container that runs [SickRage](https://github.com/SiCKRAGETV/SickRage)!
+Just a small [Docker](http://www.docker.com) container that runs [SickRage](http://sickrage.github.io/)!
 
 ## Usage
 

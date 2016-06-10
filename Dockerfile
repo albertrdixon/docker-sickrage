@@ -1,51 +1,46 @@
-FROM alpine:3.2
+FROM alpine:3.4
 MAINTAINER Albert Dixon <albert@dixon.rocks>
 
-ENTRYPOINT ["docker-entry"]
-CMD ["docker-start"]
+VOLUME ["/data"]
+ENTRYPOINT ["tini", "--", "/sbin/entry"]
+CMD ["/sbin/start"]
 EXPOSE 8081
+ENV LANGUAGE=en_US.UTF-8 \
+    LC_ALL=en_US.UTF-8 \
+    OPEN_FILE_LIMIT=32768 \
+    PATH=/src/sickrage:$PATH \
+    SB_CHANNEL=master \
+    SB_DATA=/data \
+    SB_GID=7000 \
+    SB_HOME=/src/sickrage \
+    SB_PORT=8081 \
+    SB_UID=7000 \
+    SB_USER=sickrage \
+    UPDATE_INTERVAL=1h \
+    LANG=en_US.UTF-8
 
-ENV OPEN_FILE_LIMIT      32768
-ENV PATH                 /usr/local/bin:$PATH
-ENV SB_DATA              /data
-ENV SB_HOME              /sickrage
-ENV SB_PORT              8081
-ENV SB_USER              root
-ENV SICKRAGE_CHANNEL     master
-ENV SUPERVISOR_LOG_LEVEL INFO
-ENV UPDATE_INTERVAL      4h
+ADD https://github.com/albertrdixon/escarole/releases/download/v0.2.3/escarole-linux.tgz /es.tgz
+COPY ["entry", "start", "/sbin/"]
+COPY escarole.yml /
 
-ADD https://github.com/albertrdixon/tmplnator/releases/download/v2.2.0/t2-linux.tgz /t2.tgz
-RUN tar xvzf /t2.tgz -C /usr/local \
-    && ln -s /usr/local/bin/t2-linux /usr/local/bin/t2 \
-    && rm -f /t2.tgz
-
-ADD https://github.com/albertrdixon/escarole/releases/download/v0.1.1/escarole-linux.tgz /es.tgz
-RUN tar xvzf /es.tgz -C /usr/local \
-    && ln -s /usr/local/bin/escarole-linux /usr/local/bin/escarole \
-    && rm -f /es.tgz
-
-ADD bashrc /root/.profile
-ADD configs /templates
-ADD scripts/* /usr/local/bin/
-RUN chown root:root /usr/local/bin/* \
-    && chmod a+rx /usr/local/bin/* \
-    && mkdir /data /torrents /tv_shows /downloads
-
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
+RUN mkdir -v /torrents /tv_shows /downloads \
+    && chmod +rx /sbin/entry /sbin/start \
+    && tar xvzf /es.tgz -C /bin \
+    && echo "http://dl-4.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
     && echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk update \
-    && apk add \
-        bash \
+    && apk add --update --purge \
         ca-certificates \
         git \
+        libxml2 \
+        openssl \
         py-html5lib \
+        py-libxml2 \
         py-lxml \
         py-mako \
         py-openssl \
         py-pillow \
         python \
-        supervisor \
-        unrar
-
-RUN git clone -v --depth 1 git://github.com/SiCKRAGETV/SickRage.git /sickrage
+        tini \
+        unrar \
+        unzip \
+    && rm -rf /es.tgz

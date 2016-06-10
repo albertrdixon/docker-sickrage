@@ -1,0 +1,1 @@
+cmd: 'python -u ${APP_HOME}/SickBeard.py --datadir=${SB_DATA} --config=${SB_DATA}/config.ini'
