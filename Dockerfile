@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 MAINTAINER Albert Dixon <albert@dixon.rocks>
 
 VOLUME ["/data"]
@@ -31,7 +31,10 @@ RUN mkdir -v /torrents /tv_shows /downloads \
     && apk add --update --purge \
         ca-certificates \
         git \
+        libxml2 \
+        openssl \
         py-html5lib \
+        py-libxml2 \
         py-lxml \
         py-mako \
         py-openssl \
