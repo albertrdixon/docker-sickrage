@@ -2,4 +2,4 @@
 chown -Rc sickrage:sickrage /torrents /tv_shows /downloads /data
 exec /bin/escarole --branch=${SB_CHANNEL} \
   --update-interval=${UPDATE_INTERVAL} \
-  --uid=${SB_UID} --gid=${SB_GID} SickRage/SickRage sickrage
+  --uid=${SB_UID} --gid=${SB_GID} ${REPO:-SickRage/SickRage} sickrage

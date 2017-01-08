@@ -9,6 +9,7 @@ ENV LANGUAGE=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
     OPEN_FILE_LIMIT=32768 \
     PATH=/src/sickrage:$PATH \
+    REPO=SickRage/SickRage \
     SB_CHANNEL=master \
     SB_DATA=/data \
     SB_GID=7000 \
